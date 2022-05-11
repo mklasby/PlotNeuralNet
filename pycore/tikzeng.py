@@ -41,14 +41,15 @@ def to_input( pathfile, to='(-3,0,0)', width=8, height=8, name="temp" ):
 """
 
 # Conv
-def to_Conv( name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", width=1, height=40, depth=40, caption=" " ):
+def to_Conv( name, z_label=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", width=1, height=40, depth=40, caption=" ", y_label=256 ):
     return r"""
 \pic[shift={"""+ offset +"""}] at """+ to +""" 
     {Box={
         name=""" + name +""",
         caption="""+ caption +r""",
         xlabel={{"""+ str(n_filer) +""", }},
-        zlabel="""+ str(s_filer) +""",
+        zlabel="""+ str(z_label) +""",
+        ylabel="""+ str(y_label) +""",
         fill=\ConvColor,
         height="""+ str(height) +""",
         width="""+ str(width) +""",
@@ -59,14 +60,15 @@ def to_Conv( name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", widt
 
 # Conv,Conv,relu
 # Bottleneck
-def to_ConvConvRelu( name, s_filer=256, n_filer=(64,64), offset="(0,0,0)", to="(0,0,0)", width=(2,2), height=40, depth=40, caption=" " ):
+def to_ConvConvRelu( name, z_label=256, n_filer=(64,64), offset="(0,0,0)", to="(0,0,0)", width=(2,2), height=40, depth=40, caption=" " , y_label=256):
     return r"""
 \pic[shift={ """+ offset +""" }] at """+ to +""" 
     {RightBandedBox={
         name="""+ name +""",
         caption="""+ caption +""",
         xlabel={{ """+ str(n_filer[0]) +""", """+ str(n_filer[1]) +""" }},
-        zlabel="""+ str(s_filer) +""",
+        zlabel="""+ str(z_label) +""",
+        ylabel="""+ str(y_label) +""",
         fill=\ConvColor,
         bandfill=\ConvReluColor,
         height="""+ str(height) +""",
@@ -95,12 +97,13 @@ def to_Pool(name, offset="(0,0,0)", to="(0,0,0)", width=1, height=32, depth=32, 
 """
 
 # unpool4, 
-def to_UnPool(name, offset="(0,0,0)", to="(0,0,0)", width=1, height=32, depth=32, opacity=0.5, caption=" "):
+def to_UnPool(name, offset="(0,0,0)", to="(0,0,0)", width=1, height=32, depth=32, opacity=0.5, caption=" ", z_label=224):
     return r"""
 \pic[shift={ """+ offset +""" }] at """+ to +""" 
     {Box={
         name="""+ name +r""",
         caption="""+ caption +r""",
+        z_label="""+ str(z_label) +r""",
         fill=\UnpoolColor,
         opacity="""+ str(opacity) +""",
         height="""+ str(height) +""",
@@ -112,14 +115,13 @@ def to_UnPool(name, offset="(0,0,0)", to="(0,0,0)", width=1, height=32, depth=32
 
 
 
-def to_ConvRes( name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", width=6, height=40, depth=40, opacity=0.2, caption=" " ):
+def to_ConvRes( name, z_label=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", width=6, height=40, depth=40, opacity=0.2, caption=" ", y_label=256 ):
     return r"""
 \pic[shift={ """+ offset +""" }] at """+ to +""" 
     {RightBandedBox={
         name="""+ name + """,
         caption="""+ caption + """,
         xlabel={{ """+ str(n_filer) + """, }},
-        zlabel="""+ str(s_filer) +r""",
         fill={rgb:white,1;black,3},
         bandfill={rgb:white,1;black,2},
         opacity="""+ str(opacity) +""",
@@ -132,13 +134,14 @@ def to_ConvRes( name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", w
 
 
 # ConvSoftMax
-def to_ConvSoftMax( name, s_filer=40, offset="(0,0,0)", to="(0,0,0)", width=1, height=40, depth=40, caption=" " ):
+def to_ConvSoftMax( name, z_label=40, offset="(0,0,0)", to="(0,0,0)", width=1, height=40, depth=40, caption=" ", y_label=256 ):
     return r"""
 \pic[shift={"""+ offset +"""}] at """+ to +""" 
     {Box={
         name=""" + name +""",
         caption="""+ caption +""",
-        zlabel="""+ str(s_filer) +""",
+        zlabel="""+ str(z_label) +""",
+        y_label="""+ str(y_label) +""",
         fill=\SoftmaxColor,
         height="""+ str(height) +""",
         width="""+ str(width) +""",
@@ -148,14 +151,15 @@ def to_ConvSoftMax( name, s_filer=40, offset="(0,0,0)", to="(0,0,0)", width=1, h
 """
 
 # SoftMax
-def to_SoftMax( name, s_filer=10, offset="(0,0,0)", to="(0,0,0)", width=1.5, height=3, depth=25, opacity=0.8, caption=" " ):
+def to_SoftMax( name, z_label=10, offset="(0,0,0)", to="(0,0,0)", width=1.5, height=3, depth=25, opacity=0.8, caption=" ", y_label=256 ):
     return r"""
 \pic[shift={"""+ offset +"""}] at """+ to +""" 
     {Box={
         name=""" + name +""",
         caption="""+ caption +""",
         xlabel={{" ","dummy"}},
-        zlabel="""+ str(s_filer) +""",
+        zlabel="""+ str(z_label) +""",
+        y_label="""+ str(y_label) +""",
         fill=\SoftmaxColor,
         opacity="""+ str(opacity) +""",
         height="""+ str(height) +""",

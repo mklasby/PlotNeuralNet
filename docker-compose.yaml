@@ -1,0 +1,9 @@
+services:
+  development:
+    build: .
+    volumes:
+      - type: bind
+        source: .
+        target: /workspace/plot-neural-net/
+    stdin_open: true
+    tty: true

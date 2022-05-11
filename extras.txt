@@ -1,0 +1,6 @@
+\draw [copyconnection] (-3,3,0) -- node {\copymidarrow} (-3, 15,0)
+    -- node {\copymidarrow} (skip-west);
+
+\draw [copyconnection] (skip-east)
+    -- node {\copymidarrow} (47.3, 15,0)
+    -- node {\copymidarrow} (skip_sum-north);
